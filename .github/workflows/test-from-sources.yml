@@ -33,7 +33,8 @@ jobs:
     - name: Install system dependencies (Windows)
       if: matrix.os == 'windows-latest'
       run: |
-        vcpkg install libusb
+        Invoke-WebRequest -Uri https://github.com/libusb/libusb/releases/download/v1.0.23/libusb-1.0.23.7z -OutFile libusb-1.0.23.7z
+        7z e libusb-1.0.23.7z -oC:\Windows\System32 VS2019/MS64/dll/libusb-1.0.dll
     - name: Install Python dependencies
       run: |
         python -m pip install --upgrade pip setuptools
