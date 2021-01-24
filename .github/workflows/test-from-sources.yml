@@ -33,8 +33,7 @@ jobs:
     - name: Install system dependancies (windows)
       if: matrix.os == 'windows-latest'
       run: |
-        curl.exe -o libusb.7z https://github.com/libusb/libusb/releases/download/v1.0.23/libusb-1.0.23.7z 
-        7z x libusb.7z
+        vcpkg install libusb
         
     - name: Install Python dependencies
       run: |
