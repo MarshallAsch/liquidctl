@@ -47,6 +47,7 @@ jobs:
         brew install libusb
     - name: Install system dependencies (Windows)
       if: matrix.os == 'windows-latest'
+      shell: pwsh
       run: |
         Invoke-WebRequest -Uri https://github.com/libusb/libusb/releases/download/v1.0.23/libusb-1.0.23.7z -OutFile libusb-1.0.23.7z
         7z e libusb-1.0.23.7z -oC:\Windows\System32 VS2019/MS64/dll/libusb-1.0.dll
@@ -72,9 +73,10 @@ jobs:
         liquidctl list --verbose --debug
     - name: Install and run the resulting executable (windows)
       if: matrix.os == 'windows-latest'
+      shell: pwsh
       run: |
         python setup.py install
         python -m pip install pyinstaller
-        pyinstaller --add-data C:\Windows\System32 VS2019/MS64/dll/*;.  -F liquidctl\cli.py --name liquidctl --onefile --icon extra\windows\liquidctl_logo_v1_circle_256.ico --distpath 
+        pyinstaller  --clean -F liquidctl\cli.py --name liquidctl --onefile --icon extra\windows\liquidctl_logo_v1_circle_256.ico --distpath . --add-data C:\Windows\System32 VS2019/MS64/dll/*;. 
         liquidctl list --verbose --debug
 
